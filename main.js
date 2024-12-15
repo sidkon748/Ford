@@ -4,3 +4,5 @@ const taskList = document.getElementById('taskList');
 const allTasksButton = document.getElementById('allTasks');
 const completedTasksButton = document.getElementById('completedTasks');
 const pendingTasksButton = document.getElementById('pendingTasks');
+
+const tasks = [];
