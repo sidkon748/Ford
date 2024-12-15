@@ -4,11 +4,10 @@ const taskList = document.getElementById('taskList');
 
 const tasks = [];
 
-function displayTasks(filteredTasks) {
-    taskList.innerHTML = filteredTasks.map((task, index) => `
+function displayTasks() {
+    taskList.innerHTML = tasks.map((task, index) => `
         <li>
-            <span style="text-decoration: ${task.completed ? 'line-through' : 'none'}">${task.text}</span>
-            <button onclick="toggleCompletion(${index})">${task.completed ? 'Undo' : 'Complete'}</button>
+            <span>${task.text}</span>
             <button onclick="editTask(${index})">Edit</button>
             <button onclick="deleteTask(${index})">Delete</button>
         </li>
@@ -16,22 +15,27 @@ function displayTasks(filteredTasks) {
 }
 
 function addTask() {
-    const taskText = newTaskInput.value();
+    const taskText = newTaskInput.value.trim();
     if (taskText) {
         tasks.push({ text: taskText });
+        newTaskInput.value = '';
         displayTasks();
     }
 }
 
+addTaskButton.onclick = addTask;
+
 function editTask(index) {
     const newText = prompt("Edit task:", tasks[index].text);
-    if (newText === null) {
+    if (newText !== null) {
         tasks[index].text = newText;
+        displayTasks();
     }
 }
 
 function deleteTask(index) {
-    tasks.splice(index);
+    tasks.splice(index, 1);
+    displayTasks();
 }
 
 displayTasks(tasks);
